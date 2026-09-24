@@ -44,12 +44,21 @@ Modules:
 - `counties`: postcode to county lookup, and the Albion Wanderers patch tiers.
 - `squads`: Eurobowl squad sets.
 - `rosters`: NAF race ids and names.
+- `tournaments`: tournament listings for calendars and maps, with coordinates.
+
+```python
+from naf_engine.tournaments import list_tournaments, PostcodeGeocoder
+
+rows = list_tournaments(dm)                     # upcoming, UK, approved; see the docstring for filters
+PostcodeGeocoder(".naf_data/geocode_cache.json").add_coordinates(rows)
+```
 
 ## Tournament data, as of the 23 Sep 2026 dump
 
 - `tour_data` holds 10,379 tournaments, 435 of them upcoming; 130 of those are in England, Wales, Scotland or Northern Ireland.
 - Useful fields: name, address, city, postcode (`tournamentzip`), nation, start and end dates, `naf_variantsid`, status, URL.
-- The latitude and longitude fields are empty for UK events. The map will need coordinates from the postcode.
+- The latitude and longitude fields are empty for UK events, so `PostcodeGeocoder` places them through postcodes.io (free, no key): full postcode, then outward code, then town name. It caches each result on disk. On the 24 Sep 2026 data it placed all 129 upcoming UK events.
+- Variant names come from `VARIANT_NAMES`, read from the NAF tournament pages (for example 15 is "Blood Bowl 2025", 4 is "Sevens").
 - The NAF tournament page is `https://member.thenaf.net/index.php?module=NAF&type=tournaments&func=view&id=<tournamentid>`.
 
 ## Origin
@@ -59,5 +68,4 @@ Extracted from `torquemad4/bb-county-tool` (`core/naf_scout`, commit `ebd013a`, 
 ## Still to do
 
 1. Switch `bb-county-tool` to install this package instead of its own `core/` copy, and change its imports from `naf_scout` to `naf_engine`. Its Azure build will need read access to this private repository.
-2. Add a tournaments module: upcoming tournaments by nation and date, with coordinates from the postcode.
-3. A scheduled job that feeds those tournaments into the englandbb.co.uk database.
+2. Serve `tournaments` from the county app API (`/tournaments`), so englandbb.co.uk can sync it daily.

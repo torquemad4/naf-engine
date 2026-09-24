@@ -9,4 +9,4 @@ service that does. Nothing in this package knows who is calling it.
 Extracted from torquemad4/bb-county-tool (core/naf_scout, commit ebd013a).
 """
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
