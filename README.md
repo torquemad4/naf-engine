@@ -16,8 +16,10 @@ It has no web or UI code. Apps import it, or call a service that does.
 The repository is private, so installing needs GitHub access (a token or SSH key).
 
 ```bash
-pip install "naf-engine @ git+https://github.com/torquemad4/naf-engine@v0.1.0"
+pip install "naf-engine @ git+https://github.com/torquemad4/naf-engine@main"
 ```
+
+Pin to a release tag once one exists (for example `@v0.1.0`), so a change here cannot break a deployed app unannounced.
 
 For local development:
 
