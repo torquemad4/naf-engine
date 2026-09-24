@@ -1,0 +1,23 @@
+# Secrets (never commit)
+.env
+.env.*
+*.token
+
+# Downloaded NAF dump and runtime cache
+.naf_data/
+nafstat-tmp-name/
+*.zip
+
+# Generated postcode database (built from the bundled .gz)
+src/naf_engine/data/*.sqlite
+src/naf_engine/data/*.building
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+build/
+dist/
+.pytest_cache/
