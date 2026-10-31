@@ -9,6 +9,7 @@ It has no web or UI code. Apps import it, or call a service that does.
 | Consumer | How |
 |---|---|
 | County app and scout API (`bb-county-tool`) | Imports the package. Wiring still to do: see below. |
+| englandbb.co.uk community votes | Through the NAF API (`/coaches/{naf_number}/eligibility`), which calls `voters`. |
 | englandbb.co.uk tournament calendar | Planned. A job reads upcoming UK tournaments from the engine and writes them to the site's database. |
 
 ## Install
@@ -45,6 +46,7 @@ Modules:
 - `squads`: Eurobowl squad sets.
 - `rosters`: NAF race ids and names.
 - `tournaments`: tournament listings for calendars and maps, with coordinates.
+- `voters`: Team England voter eligibility (Charter point 9): English, NAF membership not expired, and an approved non-online NAF tournament in the last 12 months. `NafDatamine.voter_eligibility(naf_number, on=date)`.
 
 ```python
 from naf_engine.tournaments import list_tournaments, PostcodeGeocoder

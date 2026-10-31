@@ -765,6 +765,15 @@ class NafDatamine:
             grid.setdefault(crace, {})[orace] = self.tally(g).to_dict()
         return {"coach_id": coach_id, "coach_name": self.coach_name(coach_id), "grid": grid}
 
+    def voter_eligibility(self, coach_id: int, on: Optional[date] = None) -> Optional[dict]:
+        """Team England voter eligibility (Charter point 9); see ``naf_engine.voters``."""
+        from .voters import voter_eligibility
+
+        self._require_loaded()
+        return voter_eligibility(
+            self.coach_data_indexed, self.tour_data, self.tour_coach_data, coach_id, on or date.today()
+        )
+
     def get_coach_postcodes(self, coach_id: int) -> list:
         """Postcodes of the coach's English tournaments (as entered in the NAF DB).
 
